@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!-- Instructions:  For the next 20 minutes, focus all your efforts on creating the application layout for your site.
+This phase involves both:
+- Creating the overall HTML/CSS/Bootstrap Layout
+- Creating the initial .on("click") event that will dynamically trigger new HTML rows to be generated.
+- Reference Screenshot.png in this directory for an example of how the final product would look
+*** This phase DOES NOT involve sending or receiving data to Firebase.
+
+If you finish early:
+- Continue refining the design! Take things to the next level. Make this application portfolio-grade!
+- Begin reading about push({}) and .on("child_added") in the Firebase documentation. -->
+<html lang="en-us">
+<head>
+
+
+<!-- Latest compiled and minified CSS --> 
+
+
+<script src="jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src='js/bootstrap.min.js'></script>
+<link rel="stylesheet" href="css/bootstrap.css" />
+
+
+<link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto" rel="stylesheet">
+
+
+<style type="text/css">
+
+body {
+font-family: 'Quicksand', sans-serif;
+}
+</style>
+
+<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+</head>
+<body>
+
+<div class="span2"></div>
+<div class="container span8">
+
+      <br>
+
+
+      <div class="jumbotron">
+        <h3 class="text-center">Employee Database</h3>
+      </div>
+
+
+ <div class="list-group col-lg-6" id="EmployeeList">
+<!--  employee list goes here -->
+ </div>
+
+      <!-- Make Your Bid -->
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">ENTER DATA</h3>
+            </div>
+            <div class="panel-body">
+              <form>
+                <div class="form-group">
+                  <label for="namebox">NAME</label>
+                  <input class="form-control" id="name-input" type="text">
+                </div>
+                <div class="form-group">
+                  <label for="rolebox">ROLE</label>
+                  <input class="form-control" id="role-input" type="text">
+                </div>
+                  <div class="form-group">
+                  <label for="startbox">START DATE</label>
+                  <input class="form-control" id="startdate-input" type="text">
+                </div>
+                 <div class="form-group">
+                  <label for="salarybox">SALARY</label>
+                  <input class="form-control" id="salary-input" type="text">
+                </div>
+
+<div class="col-lg-3"></div><div class="col-lg-6" id="LebowskiText"></div>
+<div class="dropdown fruitpicker" style="display: block;">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" id="LebowskiButton" value="">
+      Select Person 
+    </button>
+    <ul class="dropdown-menu col-md-12">
+        <li><a href="#" tabindex="-1" value="Walter">Walter</a></li>
+        <li><a href="#" tabindex="-1" value="Bunny">Bunny</a></li>
+        <li><a href="#" tabindex="-1">Big Lebowski</a></li>
+        <li><a href="#" tabindex="-1">The Dude</a></li>
+        <li><a href="#" tabindex="-1">Donny</a></li>
+    </ul>
+</div>
+
+<div id="result"> </div>
+
+
+
+
+
+                <button class="btn btn-primary" id="submit-data" type="submit">Submit</button>
+              </form>
+
+                      
+
+            </div>
+
+
+
+
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="span2"></div>
+
+  <!-- JavaScript -->
+  <script src="timesheetLogic.js"></script>
+<!-- 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+
+
+</body>
+</html>
