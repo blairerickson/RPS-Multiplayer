@@ -1,14 +1,4 @@
 <!DOCTYPE html>
-<!-- Instructions:  For the next 20 minutes, focus all your efforts on creating the application layout for your site.
-This phase involves both:
-- Creating the overall HTML/CSS/Bootstrap Layout
-- Creating the initial .on("click") event that will dynamically trigger new HTML rows to be generated.
-- Reference Screenshot.png in this directory for an example of how the final product would look
-*** This phase DOES NOT involve sending or receiving data to Firebase.
-
-If you finish early:
-- Continue refining the design! Take things to the next level. Make this application portfolio-grade!
-- Begin reading about push({}) and .on("child_added") in the Firebase documentation. -->
 <html lang="en-us">
 <head>
 
@@ -18,8 +8,77 @@ If you finish early:
 
 <script src="jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src='js/bootstrap.min.js'></script>
-<link rel="stylesheet" href="css/bootstrap.css" />
+<script type="text/javascript">
+  
 
+interact('.draggable')  
+  .draggable({
+    // enable inertial throwing
+    inertia: true,
+    // keep the element within the area of it's parent
+    restrict: {
+      restriction: "parent",
+      endOnly: true,
+      elementRect: { top: 0, left: 0, bottom: 1, right: 1 }
+    },
+    // enable autoScroll
+    autoScroll: true,
+    // call this function on every dragmove event
+    onmove: dragMoveListener,
+  });
+
+  function dragMoveListener (event) {
+    var target = event.target,
+        // keep the dragged position in the data-x/data-y attributes
+        x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
+        y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+
+    // translate the element
+    target.style.webkitTransform =
+    target.style.transform =
+      'translate(' + x + 'px, ' + y + 'px)';
+
+    // update the posiion attributes
+    target.setAttribute('data-x', x);
+    target.setAttribute('data-y', y);
+  }
+
+// enable draggables to be dropped into this
+interact('.dropzone').dropzone({  
+  // Require a 50% element overlap for a drop to be possible
+  overlap: 0.50,
+
+  // listen for drop related events:
+
+  ondropactivate: function (event) {
+    // add active dropzone feedback
+    event.target.classList.add('drop-active');
+  },
+  ondragenter: function (event) {
+    var draggableElement = event.relatedTarget,
+        dropzoneElement = event.target;
+
+    // feedback the possibility of a drop
+    dropzoneElement.classList.add('drop-target');
+  },
+  ondragleave: function (event) {
+    // remove the drop feedback style
+    event.target.classList.remove('drop-target');
+  },
+  ondrop: function (event) {
+    event.relatedTarget.textContent = 'Dropped';
+  },
+  ondropdeactivate: function (event) {
+    // remove active dropzone feedback
+    event.target.classList.remove('drop-active');
+    event.target.classList.remove('drop-target');
+  }
+});
+</script>
+
+
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/custom.css" />
 
 <link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto" rel="stylesheet">
 
@@ -34,6 +93,30 @@ font-family: 'Quicksand', sans-serif;
 <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
 </head>
 <body>
+
+
+
+<div id="box-one" class="draggable">  
+  <p> I am the first Box </p>
+</div>  
+<div id="box-two" class="draggable">  
+    <p> I am the second Box </p>
+</div>  
+
+<!-- Drag and drop containers -->
+<div id="no-drop" class="draggable drag-drop"> #no-drop </div>
+
+<div id="yes-drop" class="draggable drag-drop"> #yes-drop </div>
+
+<div id="outer-dropzone" class="dropzone">
+  #outer-dropzone
+  <div id="inner-dropzone" class="dropzone">#inner-dropzone</div>
+ </div>
+
+<!-- Custom snapping grid -->
+<div id="grid-snap">
+  Dragging is constrained to the corners of a grid
+</div>
 
 <div class="span2"></div>
 <div class="container span8">
@@ -115,13 +198,13 @@ font-family: 'Quicksand', sans-serif;
     </div>
     <div class="span2"></div>
 
-  <!-- JavaScript -->
-  <script src="timesheetLogic.js"></script>
-<!-- 
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
 
+  <!-- JavaScript libraries and code -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+  <script src="GameLogic.js"></script>
+  <script src="http://code.interactjs.io/v1.2.6/interact.js"></script>  
 
 </body>
 </html>
