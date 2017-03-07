@@ -16,7 +16,7 @@
     var database = firebase.database();
 
     // Initial Values
-    var name = "";
+    var player = "";
     var chat = "";
 
 // selects the player for the round
@@ -24,7 +24,7 @@
 $(".playpicker li a").click( function() {
   console.log("playerpicker triggered");
    event.preventDefault();
-    var player = $(this).text();
+    player = $(this).text();
     console.log(player);
     $("#PlayerSelected").html(player + " has been selected.");
 
@@ -33,21 +33,23 @@ $(".playpicker li a").click( function() {
 
 
  // Capture Button Click for chat
- 
+
     $("#submit-data").on("click", function(event) {
       event.preventDefault();
 
       console.log("SUBMIT");
 
       // Grabbed values from text boxes
-      name = $("#name-input").val().trim();
+      // name = $("#name-input").val().trim();
       chat = $("#chat-input").val().trim();
-      console.log(chat);
+      timestamp = moment().format();
+      console.log(timestamp);
 
       // Code for handling the push
       database.ref().push({
-        name: name,
-        chat: chat
+        name: player,
+        chat: chat,
+        timestamp: timestamp
       });
 
     });
@@ -90,12 +92,12 @@ $(".playpicker li a").click( function() {
 
 
 
-          database.ref().orderByChild("startdate").on("child_added", function(childSnapshot) {
+          database.ref().orderByChild("timestamp").limitToLast(3).on("child_added", function(childSnapshot) {
       		console.log("child added");
+             
+             $("#ChatList").append("<div class='list-group-item'><h4>" + childSnapshot.val().chat + "</h4><h6>" + childSnapshot.val().name + "  -   " + moment(childSnapshot.val().timestamp).fromNow() + "</h6></div>");
 
-             $("#ChatList").append("<div class='list-group-item active'>" + childSnapshot.val().name + "</div>" + "<div class='list-group-item'>" + childSnapshot.val().chat + "</div>" + moment(childSnapshot.val().chatdate).fromNow() + "</div><br>");
-
-                 console.log(moment(childSnapshot.val().startdate).fromNow());
+                 console.log(moment(childSnapshot.val().timestamp).fromNow());
 
           });
 
