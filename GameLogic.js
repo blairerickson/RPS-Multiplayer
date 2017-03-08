@@ -18,12 +18,37 @@
     // Initial Values
     var player = "";
     var chat = "";
+    var loadweapons = 3;
+    var turn = 0;
+    var slot = ["", "", "", ""];
 
+
+
+
+
+if (loadweapons < 3 && loadweapons > 0)
+{
+      $("#droptitle").html("<h2>ADD " + loadweapons + " MORE WEAPONS.</h2>");
+      console.log("loading weapons.")
+}
+
+if (loadweapons == 0)
+  {
+    $("#droptitle").html("WEAPONS LOCKED & LOADED, WAITING FOR OTHER PLAYER");
+    console.log(turn + "TURN SET")
+    database.ref().push({
+        name: player,
+        turn: turn,
+        slot1: slot[1],
+        slot2: slot[2],
+        slot3: slot[3]
+      });
+        turn++;
+  }          
 
 if (player == "")
 {
-$("#playzone")
-
+//put hiding code here.
 }
 
 // selects the player for the round
@@ -109,6 +134,9 @@ $(".playpicker li a").click( function() {
           });
 
 
+
+
+
 // Drag & Drop functions from interactjs
 
 interact('.draggable')  
@@ -147,8 +175,8 @@ interact('.draggable')
 
 // enable draggables to be dropped into this
 interact('.dropzone').dropzone({  
-  // Require a 50% element overlap for a drop to be possible
-  overlap: 0.50,
+  // Require an 85% element overlap for a drop to be possible
+  overlap: 0.85,
 
   // listen for drop related events:
 
@@ -168,7 +196,8 @@ interact('.dropzone').dropzone({
     // remove the drop feedback style
     event.target.classList.remove('drop-target');
   },
-  ondrop: function (event) {
+  ondrop: function (event) 
+  {
     console.log("event target drop stuff is : " + event.target);
     console.dir(event.relatedTarget.attributes.value.nodeValue);
 
@@ -179,14 +208,38 @@ interact('.dropzone').dropzone({
          if (weapon == "bomb")
           {
            $(event.relatedTarget).html('<img src="imgs/bomb-iconA.png" width="100%">');
+               event.relatedTarget.classList.remove('draggable');
+               slot[loadweapons] = "bomb";
+               console.log(slot[loadweapons] + " is loaded into slot " + loadweapons);
+               loadweapons--;
           }
         if (weapon == "scissors")
           {
            $(event.relatedTarget).html('<img src="imgs/scissors-iconA.png" width="100%">');
+                  event.relatedTarget.classList.remove('draggable');
+                  slot[loadweapons] = "scissors";
+                  console.log(slot[loadweapons] + " is loaded into slot " + loadweapons);
+                  loadweapons--;
           }
-
-
+        if (weapon == "rock")
+          {
+           $(event.relatedTarget).html('<img src="imgs/rock-iconA.png" width="100%">');
+                  event.relatedTarget.classList.remove('draggable');
+                  slot[loadweapons] = "rock";
+                  console.log(slot[loadweapons] + " is loaded into slot " + loadweapons);
+                  loadweapons--;
+          }
+        if (weapon == "paper")
+          {
+           $(event.relatedTarget).html('<img src="imgs/paper-iconA.png" width="100%">');
+                  event.relatedTarget.classList.remove('draggable');
+                  slot[loadweapons] = "paper";
+                  console.log(slot[loadweapons] + " is loaded into slot " + loadweapons);
+                  loadweapons--;
+          }
   },
+
+
   ondropdeactivate: function (event) {
     // remove active dropzone feedback
     event.target.classList.remove('drop-active');
