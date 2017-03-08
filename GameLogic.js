@@ -19,6 +19,13 @@
     var player = "";
     var chat = "";
 
+
+if (player == "")
+{
+$("#playzone")
+
+}
+
 // selects the player for the round
 
 $(".playpicker li a").click( function() {
@@ -94,7 +101,7 @@ $(".playpicker li a").click( function() {
 
           database.ref().orderByChild("timestamp").limitToLast(3).on("child_added", function(childSnapshot) {
       		console.log("child added");
-             
+
              $("#ChatList").append("<div class='list-group-item'><h4>" + childSnapshot.val().chat + "</h4><h6>" + childSnapshot.val().name + "  -   " + moment(childSnapshot.val().timestamp).fromNow() + "</h6></div>");
 
                  console.log(moment(childSnapshot.val().timestamp).fromNow());
@@ -190,7 +197,36 @@ interact('.dropzone').dropzone({
 
 // Protocode: 
 $(document).ready(function(){
+    for (var i = 1; i < 13; i++) {
+    var pieceID = "#box-" + i;
+    console.log(pieceID);
+    var piecevalue = $(pieceID).attr('value'); 
+    console.log(piecevalue);
 
-  $("#box-1").html('<img src="imgs/bomb-icon.png" width="100%">');
+
+      if (piecevalue == "bomb")
+      {
+        console.log("placing bomb on  "+ pieceID);
+        $(pieceID).html('<img src="imgs/bomb-icon.png" width="100%">');
+      }
+       if (piecevalue == "scissors")
+      {
+        console.log("placing scissors on  "+ pieceID);
+        $(pieceID).html('<img src="imgs/scissors-icon.png" width="100%">');
+      }
+      if (piecevalue == "paper")
+      {
+        console.log("placing paper on  "+ pieceID);
+        $(pieceID).html('<img src="imgs/paper-icon.png" width="100%">');
+      }
+      if (piecevalue == "rock")
+      {
+        console.log("placing rock on  "+ pieceID);
+        $(pieceID).html('<img src="imgs/rock-icon.png" width="100%">');
+      }
+
+    }
+
+
 
   });
