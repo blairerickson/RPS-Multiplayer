@@ -25,14 +25,16 @@
 
 
 
-
-if (loadweapons < 3 && loadweapons > 0)
+function workweapons ()
+{
+ console.log(slot[loadweapons] + " is loaded into slot " + loadweapons);
+loadweapons--;
+if (loadweapons > 0)
 {
       $("#droptitle").html("<h2>ADD " + loadweapons + " MORE WEAPONS.</h2>");
       console.log("loading weapons.")
 }
-
-if (loadweapons == 0)
+else 
   {
     $("#droptitle").html("WEAPONS LOCKED & LOADED, WAITING FOR OTHER PLAYER");
     console.log(turn + "TURN SET")
@@ -45,6 +47,7 @@ if (loadweapons == 0)
       });
         turn++;
   }          
+}
 
 if (player == "")
 {
@@ -210,32 +213,28 @@ interact('.dropzone').dropzone({
            $(event.relatedTarget).html('<img src="imgs/bomb-iconA.png" width="100%">');
                event.relatedTarget.classList.remove('draggable');
                slot[loadweapons] = "bomb";
-               console.log(slot[loadweapons] + " is loaded into slot " + loadweapons);
-               loadweapons--;
+               workweapons();
           }
         if (weapon == "scissors")
           {
            $(event.relatedTarget).html('<img src="imgs/scissors-iconA.png" width="100%">');
                   event.relatedTarget.classList.remove('draggable');
                   slot[loadweapons] = "scissors";
-                  console.log(slot[loadweapons] + " is loaded into slot " + loadweapons);
-                  loadweapons--;
+                    workweapons();
           }
         if (weapon == "rock")
           {
            $(event.relatedTarget).html('<img src="imgs/rock-iconA.png" width="100%">');
                   event.relatedTarget.classList.remove('draggable');
                   slot[loadweapons] = "rock";
-                  console.log(slot[loadweapons] + " is loaded into slot " + loadweapons);
-                  loadweapons--;
+                    workweapons();
           }
         if (weapon == "paper")
           {
            $(event.relatedTarget).html('<img src="imgs/paper-iconA.png" width="100%">');
                   event.relatedTarget.classList.remove('draggable');
                   slot[loadweapons] = "paper";
-                  console.log(slot[loadweapons] + " is loaded into slot " + loadweapons);
-                  loadweapons--;
+                    workweapons();
           }
   },
 
